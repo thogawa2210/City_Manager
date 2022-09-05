@@ -6,22 +6,7 @@ const fs = require("fs");
 
 const controller = new Controller();
 
-const mimeTypes = {
-    "html": "text/html",
-    "js": "text/javascript",
-    "css": "text/css",
-    "png": "image/png",
-    "jpg": "image/jpeg"
-};
-
 const httpServer = http.createServer((req, res) => {
-    const filesDefences = req.url.match(/\.js|.css|\.png|\.jpg/);
-    if (filesDefences) {
-        const extension = mimeTypes[filesDefences[0].toString().split('.')[1]];
-        res.writeHead(200, { 'Content-Type': extension });
-        fs.createReadStream(__dirname + "/" + req.url).pipe(res);
-    }
-
     const urlPath = url.parse(req.url);
 
     switch (urlPath.pathname) {
